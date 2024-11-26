@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -110,7 +111,7 @@ public class ApproveBorrowFrame extends JFrame {
         if (dateTime == null) {
             return "";
         }
-        return dateTime.toLocalDate().toString(); // Only show YYYY-MM-DD
+        return dateTime.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
     }
 
     private void updateTable(List<Reservation> reservations) {

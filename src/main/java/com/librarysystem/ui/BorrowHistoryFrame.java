@@ -9,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -145,13 +147,16 @@ public class BorrowHistoryFrame extends JFrame {
 
     private void updateTable(List<BorrowHistoryDTO> historyRecords) {
         tableModel.setRowCount(0); // Clear existing rows
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         for (BorrowHistoryDTO record : historyRecords) {
+                String formattedDate = record.getDate() != null ? 
+                java.time.LocalDate.parse(record.getDate()).format(formatter) : "N/A";  
             tableModel.addRow(new Object[]{
                     record.getMemberName(),
                     record.getBookTitle(),
                     record.getAuthor(),
                     record.getActionType(),
-                    record.getDate()
+                    formattedDate
             });
         }
     }

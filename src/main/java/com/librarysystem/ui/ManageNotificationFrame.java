@@ -13,6 +13,8 @@ import java.awt.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -77,6 +79,7 @@ public class ManageNotificationFrame extends JFrame {
         setVisible(true);
     }
 
+
     private void fetchOverdueReservations() {
         try {
             URL url = new URI("http://localhost:8080/api/admin/reservations/past-due").toURL();
@@ -86,7 +89,7 @@ public class ManageNotificationFrame extends JFrame {
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 // Read the response
                 Scanner scanner = new Scanner(conn.getInputStream());
-                StringBuilder result = new StringBuilder();
+                StringBuilder result = new StringBuilder(); 
                 while (scanner.hasNextLine()) {
                     result.append(scanner.nextLine());
                 }
@@ -121,9 +124,11 @@ public class ManageNotificationFrame extends JFrame {
         DefaultTableModel model = (DefaultTableModel) reservationTable.getModel();
         model.setRowCount(0); // Clear existing rows
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+
         for (Reservation reservation : reservations) {
-            String dueDate = reservation.getDueDate() != null ? reservation.getDueDate().toLocalDate().toString() : "N/A";
-            String reservedDate = reservation.getReservedDate() != null ? reservation.getReservedDate().toLocalDate().toString() : "N/A";
+            String dueDate = reservation.getDueDate() != null ? reservation.getDueDate().toLocalDate().format(formatter) : "N/A";
+            String reservedDate = reservation.getReservedDate() != null ? reservation.getReservedDate().toLocalDate().format(formatter) : "N/A";
 
             model.addRow(new Object[]{
                     reservation.getId(),

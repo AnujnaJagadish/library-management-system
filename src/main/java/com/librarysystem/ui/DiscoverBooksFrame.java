@@ -189,7 +189,7 @@ public class DiscoverBooksFrame extends JFrame {
                 conn.getOutputStream().write(json.getBytes());
 
                 if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    JOptionPane.showMessageDialog(null, "Book reserved successfully.");
+                    JOptionPane.showMessageDialog(null, "Book reserved successfully. Admin will approve the borrow request.");
                     searchBooks(searchField.getText());
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to reserve book.", "Error", JOptionPane.ERROR_MESSAGE);
