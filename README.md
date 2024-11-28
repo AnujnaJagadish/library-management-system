@@ -15,27 +15,30 @@ SpringBoot for backend and Swing for UI. This was the requirement for the projec
     psql postgres
 
   i.Create a SuperUser 
+
     CREATE ROLE my_superuser WITH SUPERUSER CREATEDB CREATEROLE LOGIN PASSWORD 'your_password';
 
   ii.Create a database with name ex: library_management
-  CREATE DATABASE library_management;
+
+    CREATE DATABASE library_management;
 
   iii.Set username and password for the database connection
-  CREATE USER library_user WITH PASSWORD 'your_password';
-  GRANT ALL PRIVILEGES ON DATABASE library_management TO library_user;
-  \c library_management
+  
+    CREATE USER library_user WITH PASSWORD 'your_password';
+    GRANT ALL PRIVILEGES ON DATABASE library_management TO library_user;
+    \c library_management
    
   iv. Create tables as below:
 
-  CREATE TABLE BOOKS (
-   ID SERIAL PRIMARY KEY,
-   TITLE VARCHAR(100) NOT NULL,
-   AUTHOR VARCHAR(100) NOT NULL,
-   GENRE VARCHAR(20) NOT NULL,
-   COUNT INTEGER NOT NULL CHECK (COUNT >= 0),
-   RESERVED_COUNT INTEGER DEFAULT 0 CHECK (RESERVED_COUNT >= 0),
-   BORROWED_COUNT INTEGER DEFAULT 0 CHECK (BORROWED_COUNT >= 0)
-    );
+    CREATE TABLE BOOKS (
+    ID SERIAL PRIMARY KEY,
+    TITLE VARCHAR(100) NOT NULL,
+    AUTHOR VARCHAR(100) NOT NULL,
+    GENRE VARCHAR(20) NOT NULL,
+    COUNT INTEGER NOT NULL CHECK (COUNT >= 0),
+    RESERVED_COUNT INTEGER DEFAULT 0 CHECK (RESERVED_COUNT >= 0),
+    BORROWED_COUNT INTEGER DEFAULT 0 CHECK (BORROWED_COUNT >= 0)
+        );
 
     CREATE TABLE MEMBERS (
     ID SERIAL PRIMARY KEY,
